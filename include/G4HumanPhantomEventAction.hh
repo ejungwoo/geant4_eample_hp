@@ -37,12 +37,13 @@
 #include "G4UserEventAction.hh"
 #include "globals.hh"
 #include <map>
+#include "G4HumanPhantomAnalysisManager.hh"
 
 class G4Event;
 class G4HumanPhantomEventAction : public G4UserEventAction
 {
 public:
-  G4HumanPhantomEventAction();
+  G4HumanPhantomEventAction(G4HumanPhantomAnalysisManager *);
   ~G4HumanPhantomEventAction();
 
 public:
@@ -51,11 +52,13 @@ public:
 
 private:
   void Fill(G4String bodypartName, G4double energyDeposit);
-  void totalEventEnergyDeposit();
+  void totalEventEnergyDeposit(G4int eventID);
  
   G4int hitCollectionID; 
   std::map<std::string,G4double> energyTotal;
   G4String bodypartName;
+
+  G4HumanPhantomAnalysisManager *analysisMan;
 };
 #endif
 

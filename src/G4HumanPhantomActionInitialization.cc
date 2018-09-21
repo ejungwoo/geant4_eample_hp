@@ -60,7 +60,7 @@ SetUserAction(new G4HumanPhantomPrimaryGeneratorAction);
 SetUserAction(new G4HumanPhantomRunAction(analysis));
 
   
-G4HumanPhantomEventAction* eventAction = new G4HumanPhantomEventAction();
+G4HumanPhantomEventAction* eventAction = new G4HumanPhantomEventAction(analysis);
 SetUserAction(eventAction);
 
 SetUserAction(new G4HumanPhantomSteppingAction()); 

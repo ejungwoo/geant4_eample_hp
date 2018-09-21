@@ -40,9 +40,10 @@
 #include "G4UnitsTable.hh"
 #include "G4HumanPhantomRunAction.hh"
 #include "G4RunManager.hh"
+#include "G4SystemOfUnits.hh"
 
-G4HumanPhantomEventAction::G4HumanPhantomEventAction():
-hitCollectionID(-1)
+G4HumanPhantomEventAction::G4HumanPhantomEventAction(G4HumanPhantomAnalysisManager *analysis):
+hitCollectionID(-1), analysisMan(analysis)
 { 
  
 }
@@ -113,6 +114,8 @@ void G4HumanPhantomEventAction::EndOfEventAction(const G4Event* evt)
  if (HCE)
      HC = (G4HumanPhantomHitsCollection*)(HCE->GetHC(hitCollectionID));
 
+ G4int eventID = evt -> GetEventID();
+
  if (HC)
 	{
 	  G4int hitNumber = HC->entries();
@@ -127,7 +130,7 @@ void G4HumanPhantomEventAction::EndOfEventAction(const G4Event* evt)
 	    }
 	}
 
- totalEventEnergyDeposit();
+ totalEventEnergyDeposit(eventID);
 }
 
 void G4HumanPhantomEventAction:: Fill(G4String bName, 
@@ -137,26 +140,31 @@ void G4HumanPhantomEventAction:: Fill(G4String bName,
  energyTotal[bName] += energyDeposit;
 }
 
-void G4HumanPhantomEventAction::totalEventEnergyDeposit() 
+void G4HumanPhantomEventAction::totalEventEnergyDeposit(G4int eventID)
 {
 
- G4RunManager* runManager = G4RunManager::GetRunManager();
- G4HumanPhantomRunAction* pointerRun = (G4HumanPhantomRunAction*)(runManager->GetUserRunAction());
+ //G4RunManager* runManager = G4RunManager::GetRunManager();
+ //G4HumanPhantomRunAction* pointerRun = (G4HumanPhantomRunAction*)(runManager->GetUserRunAction());
 
  std::map<std::string,G4double>::iterator i = energyTotal.begin();
   std::map<std::string,G4double>::iterator end = energyTotal.end();
 
+  G4int k=0;
   while(i!=end)
     {
 
-      G4String bodypart = i->first;
+      //G4String bodypart = i->first;
       G4double energyDep = i->second;
       
-      if(energyDep != 0.)
-	{
-	  pointerRun->Fill(bodypart, energyDep);
-	}
+  //    if(energyDep != 0.)
+	//{
+	//  pointerRun->Fill(bodypart, energyDep);
+	//}
       i++;
+#ifdef ANALYSIS_USE
+      analysisMan -> FillNtupleWithEnergyDeposition(k, energyDep/MeV, eventID);
+#endif
+      k++;
     }
   
 }

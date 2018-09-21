@@ -109,7 +109,7 @@ void G4HumanPhantomRunAction::BeginOfRunAction(const G4Run* aRun)
 void G4HumanPhantomRunAction::EndOfRunAction(const G4Run* aRun)
 {
   G4cout << "Number of events = " << aRun->GetNumberOfEvent() << G4endl;
-  totalRunEnergyDeposit();
+  //totalRunEnergyDeposit();
 
 #ifdef ANALYSIS_USE
 // Close the output ROOT file with the results
@@ -146,7 +146,7 @@ void G4HumanPhantomRunAction::totalRunEnergyDeposit()
 
 #ifdef ANALYSIS_USE
      // Fill Ntuple
-     analysisMan -> FillNtupleWithEnergyDeposition(k, energyDep/MeV);
+     //analysisMan -> FillNtupleWithEnergyDeposition(k, energyDep/MeV);
 #endif 
      i++;
      k++;
