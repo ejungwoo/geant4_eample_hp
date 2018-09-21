@@ -117,7 +117,7 @@ G4VPhysicalVolume* G4HumanPhantomConstruction::Construct()
       //  builder->SetModel(model);
       builder->BuildTrunk("yellow", false, sensitivities["Trunk"]);
       
-      builder->BuildLeftLeg("yellow", false,sensitivities["LeftLeg"]);
+      builder->BuildLeftLeg("yellow", true,sensitivities["LeftLeg"]);
       builder->BuildRightLeg("yellow", false,sensitivities["RightLeg"]);
       
       builder->BuildLeftArmBone("grey", true,sensitivities["LeftArmBone"]);
