@@ -41,7 +41,7 @@ This class was developed following the extended Geant4 example analysis/AnaEx01
 */
 
 // Define the total number of columns in the ntuple
-const G4int MaxNtCol = 2;
+const G4int MaxNtCol = 3;
 
 class G4HumanPhantomAnalysisManager
 {
@@ -55,7 +55,7 @@ public:
   // Create the output ROOT file 
   // Create the ntuple and histograms
 
-  void FillNtupleWithEnergyDeposition(G4int,G4double);
+  void FillNtupleWithEnergyDeposition(G4int,G4double,G4int);
   // Method to fill the ntuple with the energy deposition, integrated over a run, 
   // in each organ identified with an integer
 
