@@ -1,17 +1,19 @@
 #
 ### Radiation field defined
 ### by means of GPS 
-/gps/verbose 0
-/gps/particle proton
-/gps/energy 100 MeV
+#/gps/verbose 0
+#/gps/particle proton
 #
-/gps/pos/type Volume
+#/gps/pos/type Volume
 #
-/gps/pos/shape Para
-/gps/pos/halfx 20 cm
-/gps/pos/halfy 1 mm
-/gps/pos/halfz 100 cm
-/gps/pos/centre 0. 30. 0. cm
-/gps/direction 0 -1 0 
-
-/gps/position -100 500 -300 mm # to center of the right leg
+#/gps/pos/shape Para
+#/gps/pos/halfx 20 cm
+#/gps/pos/halfy 1 mm
+#/gps/pos/halfz 100 cm
+#/gps/pos/centre 0. 30. 0. cm
+#/gps/direction 0 -1 0 
+#
+#/gps/energy 100 MeV
+#/gps/ene/type Gauss
+#/gps/ene/sigma 10
+#/gps/position -100 500 -300 mm # to center of the right leg

@@ -30,16 +30,36 @@
 #include "globals.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4Event.hh"
-#include "G4GeneralParticleSource.hh"
+#include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
 #include "G4ParticleDefinition.hh"
 
 #include "G4RunManager.hh"
 #include "G4ios.hh"
 
+#include <ifstream>
+#include "TGraph.h"
+#include "TF1.h"
+
 G4HumanPhantomPrimaryGeneratorAction::G4HumanPhantomPrimaryGeneratorAction()
 {
-  particleGun = new G4GeneralParticleSource();
+  particleGun = new G4ParticleGun(1);
+
+  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+  G4ParticleDefinition* particle = particleTable -> FindParticle("proton");
+
+  particleGun -> SetParticleDefinition(particle);
+  particleGun -> SetParticleMomentumDirection(G4ThreeVector(0.,-1.,0.));
+  particleGun -> SetParticlePosition(G4ThreeVector(-100.,500.,-300));
+
+  graph = new TGraph();
+
+  std::ifstream input("h_flux.dat");
+  Double_t e, flux;
+  while (input >> e >> flux)
+    graph -> SetPoint(graph->GetN(),e,flux);
+
+  fpdf = new TF1("flux_pdf",[&](double*x, double*){ return graph->Eval(x[0]); },1,10000,0);
 }
 
 G4HumanPhantomPrimaryGeneratorAction::~G4HumanPhantomPrimaryGeneratorAction()
@@ -49,6 +69,7 @@ G4HumanPhantomPrimaryGeneratorAction::~G4HumanPhantomPrimaryGeneratorAction()
 
 void G4HumanPhantomPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
+  particleGun -> SetParticleEnergy(fpdf->GetRandom()*MeV);
   particleGun -> GeneratePrimaryVertex(anEvent);
 }
 

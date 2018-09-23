@@ -32,8 +32,10 @@
 #include "globals.hh"
 #include <vector>
 
-class G4GeneralParticleSource;
+class G4ParticleGun;
 class G4Event;
+class TGraph;
+class TF1;
 
 class G4HumanPhantomPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
@@ -45,7 +47,9 @@ class G4HumanPhantomPrimaryGeneratorAction : public G4VUserPrimaryGeneratorActio
     void GeneratePrimaries(G4Event* anEvent);
 
   private:
-    G4GeneralParticleSource* particleGun;
+    G4ParticleGun* particleGun;
+    TGraph *graph;
+    TF1 *fpdf;
 };
 #endif
 

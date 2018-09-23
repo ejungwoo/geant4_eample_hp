@@ -44,10 +44,15 @@ include_directories(${PROJECT_SOURCE_DIR}/include
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
+EXECUTE_PROCESS(COMMAND root-config --cflags OUTPUT_VARIABLE ROOT_CXX_FLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ROOT_CXX_FLAGS}")
+
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
 add_executable(phantom phantom.cc ${sources} ${headers})
+EXECUTE_PROCESS(COMMAND root-config --libs OUTPUT_VARIABLE ROOT_LD_FLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
+set(CMAKE_EXE_LINKER_FLAGS ${ROOT_LD_FLAGS})
 target_link_libraries(phantom ${Geant4_LIBRARIES} ${GDML_LIBRARIES} )
 
 #----------------------------------------------------------------------------
@@ -57,6 +62,7 @@ target_link_libraries(phantom ${Geant4_LIBRARIES} ${GDML_LIBRARIES} )
 #
 set(human_phantom_SCRIPTS
     adultHead.mac adultMIRDFemale.mac adultMIRDMale.mac adultMIXFemale.mac adultORNLFemale.mac adultORNLMale.mac batch.mac dawnVis.mac default.mac openGLVis.mac vrmlVis.mac primary.mac macro.C 
+    h_flux.dat
   )
 
 foreach(_script ${human_phantom_SCRIPTS})
