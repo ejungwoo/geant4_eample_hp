@@ -77,6 +77,7 @@ void G4HumanPhantomAnalysisManager::book()
   fNtColId[0] = AnalysisManager->CreateNtupleDColumn("organID");
   fNtColId[1] = AnalysisManager->CreateNtupleDColumn("edep");
   fNtColId[2] = AnalysisManager->CreateNtupleDColumn("eventID");
+  fNtColId[3] = AnalysisManager->CreateNtupleDColumn("primary_energy");
 
   AnalysisManager->FinishNtuple();
   
@@ -92,8 +93,8 @@ void G4HumanPhantomAnalysisManager::FillNtupleWithEnergyDeposition(G4int organ,G
   AnalysisManager->FillNtupleDColumn(1, fNtColId[0], organ);
   AnalysisManager->FillNtupleDColumn(1, fNtColId[1], energyDep);
   AnalysisManager->FillNtupleDColumn(1, fNtColId[2], eventID);
+  AnalysisManager->FillNtupleDColumn(1, fNtColId[3], fPrimaryEnergy);
   AnalysisManager->AddNtupleRow(1);  
-  G4cout << "[Analysis] event:" << eventID << " organ:" << organ << " edep: "<< energyDep << G4endl;
 }
  }
 
@@ -110,7 +111,10 @@ void G4HumanPhantomAnalysisManager::save()
    }
 }
 
-
+void G4HumanPhantomAnalysisManager::SetPrimaryEnergy(G4double energy)
+{
+  fPrimaryEnergy = energy;
+}
 
 
 

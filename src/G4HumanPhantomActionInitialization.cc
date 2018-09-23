@@ -54,7 +54,7 @@ void G4HumanPhantomActionInitialization::Build() const
 // Instantiate the analysis manager
 G4HumanPhantomAnalysisManager* analysis = new G4HumanPhantomAnalysisManager();
  
-SetUserAction(new G4HumanPhantomPrimaryGeneratorAction);
+SetUserAction(new G4HumanPhantomPrimaryGeneratorAction(analysis));
 
 
 SetUserAction(new G4HumanPhantomRunAction(analysis));

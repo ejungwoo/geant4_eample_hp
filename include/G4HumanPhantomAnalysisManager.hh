@@ -41,7 +41,7 @@ This class was developed following the extended Geant4 example analysis/AnaEx01
 */
 
 // Define the total number of columns in the ntuple
-const G4int MaxNtCol = 3;
+const G4int MaxNtCol = 4;
 
 class G4HumanPhantomAnalysisManager
 {
@@ -63,9 +63,11 @@ public:
  // This method if called at the end of the run to store the 
  // results in the ROOT file
 
+  void SetPrimaryEnergy(G4double);
 private:
     G4bool factoryOn; 
     G4int         fNtColId[MaxNtCol];
+    G4double fPrimaryEnergy;
 };
 #endif
 

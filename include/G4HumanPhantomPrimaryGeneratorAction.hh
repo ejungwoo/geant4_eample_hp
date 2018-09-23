@@ -36,11 +36,12 @@ class G4ParticleGun;
 class G4Event;
 class TGraph;
 class TF1;
+class G4HumanPhantomAnalysisManager;
 
 class G4HumanPhantomPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
   public:
-    G4HumanPhantomPrimaryGeneratorAction();
+    G4HumanPhantomPrimaryGeneratorAction(G4HumanPhantomAnalysisManager*);
     ~G4HumanPhantomPrimaryGeneratorAction();
 
   public:
@@ -50,6 +51,7 @@ class G4HumanPhantomPrimaryGeneratorAction : public G4VUserPrimaryGeneratorActio
     G4ParticleGun* particleGun;
     TGraph *graph;
     TF1 *fpdf;
+    G4HumanPhantomAnalysisManager *analysisMan;
 };
 #endif
 

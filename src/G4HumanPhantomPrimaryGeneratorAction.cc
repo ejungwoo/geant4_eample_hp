@@ -37,11 +37,12 @@
 #include "G4RunManager.hh"
 #include "G4ios.hh"
 
-#include <ifstream>
+#include <fstream>
 #include "TGraph.h"
 #include "TF1.h"
+#include "G4HumanPhantomAnalysisManager.hh"
 
-G4HumanPhantomPrimaryGeneratorAction::G4HumanPhantomPrimaryGeneratorAction()
+G4HumanPhantomPrimaryGeneratorAction::G4HumanPhantomPrimaryGeneratorAction(G4HumanPhantomAnalysisManager *analysis) : analysisMan(analysis)
 {
   particleGun = new G4ParticleGun(1);
 
@@ -71,5 +72,8 @@ void G4HumanPhantomPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   particleGun -> SetParticleEnergy(fpdf->GetRandom()*MeV);
   particleGun -> GeneratePrimaryVertex(anEvent);
+
+  G4double energy = particleGun -> GetParticleEnergy();
+  analysisMan -> SetPrimaryEnergy(energy);
 }
 

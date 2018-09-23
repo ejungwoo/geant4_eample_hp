@@ -52,7 +52,7 @@ G4HumanPhantomEventAction::~G4HumanPhantomEventAction()
 {
 }
 
-void G4HumanPhantomEventAction::BeginOfEventAction(const G4Event*)
+void G4HumanPhantomEventAction::BeginOfEventAction(const G4Event* event)
 {
  energyTotal["logicalHead"]=0.;
  energyTotal["logicalTrunk"]=0.;
@@ -102,6 +102,8 @@ void G4HumanPhantomEventAction::BeginOfEventAction(const G4Event*)
   if (hitCollectionID==-1) {
     hitCollectionID = SDman->GetCollectionID("HumanPhantomCollection");
   }
+
+  G4cout << "Event " << event -> GetEventID() << G4endl;
 }
  
 void G4HumanPhantomEventAction::EndOfEventAction(const G4Event* evt)
@@ -166,5 +168,4 @@ void G4HumanPhantomEventAction::totalEventEnergyDeposit(G4int eventID)
 #endif
       k++;
     }
-  
 }
