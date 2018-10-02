@@ -3,7 +3,7 @@ void read()
   auto file = new TFile("human_phantom.root");
   file -> ls();
 
-  auto dir = file -> GetDirectory("human_phantom_ntuple"); dir -> ls();
+  auto dir = file -> GetDirectory("human_phantom_ntuple");
   dir -> ls();
 
   auto tree = (TTree *) dir -> Get("data");
